@@ -1,2 +1,20 @@
 /* Main styles */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+    display: inline-block;
+}
+
+.title-card {
+    background-color: #3492eb;
+}

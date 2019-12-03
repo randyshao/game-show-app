@@ -8,6 +8,17 @@
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
+    height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: #fff;
+}
+
+ol {
+    padding: 0;
+    list-style-type: none;
 }
 
 li {
@@ -15,6 +26,51 @@ li {
     display: inline-block;
 }
 
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .title-card {
     background-color: #3492eb;
+}
+
+.start-btn {
+    text-align: center;
+    display: inline-block;
+    padding: 5px;
+    border: 2px solid black;
+    margin: 50px auto;
+    background-color: #fff;
+    text-decoration: none;
+}
+
+.game-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #33cc33;
+}
+
+.keyboard-row {
+    text-align: center;
+}
+
+.lives {
+    text-align: center;
+    list-style-type: none;
+}
+
+/* overlay */
+#cover,
+#main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }

@@ -1,7 +1,8 @@
 const startClicked = document.querySelector('.start-btn');
 const mainWindow = document.querySelector('.game-card');
-const letterClicked = document.querySelector('button');
+const letterClicked = document.querySelector('#keyboard');
 const secretPhrase = document.querySelector('#phrase');
+const phraseLetters = secretPhrase.getElementsByTagName('li');
 const phrases = ['Hello my name is Randy', 'Ok boomer', 'Why are you running', 'What are those', 'Peanut Butter Jelly Time'];
 let wrongGuesses = 0;
 
@@ -11,7 +12,7 @@ startClicked.addEventListener('click', (e) => {
 });
 
 function getRandomPhraseAsArray(phrases) {
-    const word = phrases[Math.floor(Math.random() * phrases.length)]
+    const word = phrases[Math.floor(Math.random() * phrases.length)].toUpperCase();
     const wordArray = word.split('');
     return wordArray;
     // Gets a random phrase from the array and returns an array of characters from the string
@@ -20,19 +21,18 @@ function getRandomPhraseAsArray(phrases) {
 function addPhraseToDisplay(phrase) {
 
     for (i = 0; i < phrase.length; i++) {
-
         const slot = document.createElement('li')
         const letter = document.createTextNode(phrase[i]);
         slot.appendChild(letter);
         secretPhrase.appendChild(slot);
 
-        if (letter === ' ') {
-            break;
+        if (letter.textContent === ' ') {
+            slot.className = 'space';
+            console.log(slot);
         } else {
             slot.className = 'letter';
             console.log(slot);
         }
-
     }
     // create empty slots to represent the length of the string
     // loops through the array of characters
@@ -41,12 +41,22 @@ function addPhraseToDisplay(phrase) {
 };
 
 letterClicked.addEventListener('click', (e) => {
-    function checkLetter(letter) { 
-        // loop over the letters in the word, if the value of the letter matches with a letter thats in the phrase, make it appear and return that letter.
-        // else, replace a live heart with a dead heart and return "null"
-        // disable chosen buttons
-    };
+
+    const buttonChosen = e.target.textContent.toUpperCase();
+    checkLetter(buttonChosen);
 });
+
+function checkLetter(letter) {
+    for (i = 0; i < phraseLetters.length; i++) {
+        if (letter === phraseLetters[i].textContent) {
+            phraseLetters[i].className = 'letter-revealed';
+        }  
+    }
+            // loop over the letters in the word, if the value of the letter matches with a letter thats in the phrase, make it appear and return that letter.
+            // else, replace a live heart with a dead heart and return "null"
+            // disable chosen buttons
+
+};
 
 function checkWin(letter) {
     // Check to see if the number of letters with class "show", matches with the number of letters with class "letters"

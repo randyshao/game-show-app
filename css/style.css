@@ -87,3 +87,30 @@ button {
     top: 0;
     bottom: 0;
 }
+
+.letter {
+    font-size: 1em;
+    height: 60px;
+    width: 60px;
+    padding: 20px 1px 0 1px;
+    margin: 2px;
+    color: transparent;
+    background: white;
+    border-radius: 5px;
+}
+
+.letter-revealed {
+    font-size: 1em;
+    height: 60px;
+    width: 60px;
+    padding: 20px 1px 0 1px;
+    margin: 2px;
+    color: white;
+    background: rgba(13, 188, 219, 0.897);
+    border-radius: 5px;
+}
+
+.space {
+    height: 60px;
+    width: 10px;
+}

@@ -3,7 +3,8 @@ const resetClicked = document.querySelectorAll('.reset-btn');
 const letterClicked = document.querySelector('#keyboard');
 const secretPhrase = document.querySelector('#phrase');
 const lives = document.querySelectorAll('#heart');
-const phrases = ['Hello my name is Randy', 'Ok boomer', 'Why are you running', 'What are those', 'Peanut Butter Jelly Time'];
+const phrases = ['Hello my name is Randy', 'Ok boomer', 'Why are you running', 'What are those', 
+                'Peanut Butter Jelly Time', 'Haters Gonna Hate'];
 let guessesLeft = 5;
 
 startClicked.addEventListener('click', (e) => {
@@ -41,17 +42,18 @@ function addPhraseToDisplay(phrase) {
 };
 
 letterClicked.addEventListener('click', (e) => {
-
     if (e.target.tagName === 'BUTTON') {
         const buttonChosen = e.target.textContent.toUpperCase();
-        e.target.childNodes.disabled = true;
+        e.target.disabled = true;
         e.target.classList.add('chosen');
         const value = checkLetter(buttonChosen);
         if (value === null) {
             guessesLeft--;
             lives[guessesLeft].src = 'images/lostHeart.png';
         }
-        checkWin();
+        setTimeout(function() { 
+            checkWin(); 
+        }, 700);
     }
 });
 

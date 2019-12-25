@@ -1,25 +1,31 @@
 const startClicked = document.querySelector('.start-btn');
+const resetClicked = document.querySelectorAll('.reset-btn');
 const mainWindow = document.querySelector('.game-card');
 const letterClicked = document.querySelector('#keyboard');
 const secretPhrase = document.querySelector('#phrase');
 const phraseLetters = secretPhrase.getElementsByTagName('li');
 const phrases = ['Hello my name is Randy', 'Ok boomer', 'Why are you running', 'What are those', 'Peanut Butter Jelly Time'];
-let wrongGuesses = 0;
+let guessesLeft = 5;
 
 startClicked.addEventListener('click', (e) => {
     e.target.parentNode.style.display = 'none';
     mainWindow.setAttribute('id', 'main');
+    generatePhrase();
 });
 
+function generatePhrase() {
+    const phraseArray = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(phraseArray);
+}
+
+// Gets a random phrase from the array and returns an array of characters from the string
 function getRandomPhraseAsArray(phrases) {
     const word = phrases[Math.floor(Math.random() * phrases.length)].toUpperCase();
     const wordArray = word.split('');
     return wordArray;
-    // Gets a random phrase from the array and returns an array of characters from the string
 };
 
 function addPhraseToDisplay(phrase) {
-
     for (i = 0; i < phrase.length; i++) {
         const slot = document.createElement('li')
         const letter = document.createTextNode(phrase[i]);
@@ -28,41 +34,81 @@ function addPhraseToDisplay(phrase) {
 
         if (letter.textContent === ' ') {
             slot.className = 'space';
-            console.log(slot);
         } else {
             slot.className = 'letter';
-            console.log(slot);
         }
     }
-    // create empty slots to represent the length of the string
-    // loops through the array of characters
-    // for each character, create a list item and append the character to the list item, and append the li to the ul
-    // if the character is a letter, add the class "letter" to the list item
 };
 
 letterClicked.addEventListener('click', (e) => {
 
-    const buttonChosen = e.target.textContent.toUpperCase();
-    checkLetter(buttonChosen);
+    if (e.target.tagName === 'BUTTON') {
+        const buttonChosen = e.target.textContent.toUpperCase();
+        e.target.childNodes.disabled = true;
+        e.target.classList.add('chosen');
+        console.log(buttonChosen);
+        console.log(secretPhrase);
+        const value = checkLetter(buttonChosen);
+    
+        if (value === null) {
+            guessesLeft--;
+            const heartMeter = document.querySelector('#heart-meter');
+            const lives = heartMeter.getElementsByTagName('li');
+            console.log(guessesLeft)
+            lives[guessesLeft].src = 'images/lostHeart.png';
+        }
+
+        checkWin();
+    }
 });
 
 function checkLetter(letter) {
+    let letterFound = false;
     for (i = 0; i < phraseLetters.length; i++) {
         if (letter === phraseLetters[i].textContent) {
-            phraseLetters[i].className = 'letter-revealed';
-        }  
+            phraseLetters[i].classList.add('show');
+            letterFound = true;
+        }
+    } 
+
+    if (letterFound) {
+        return letter;
+    } else {
+        return null;
     }
-            // loop over the letters in the word, if the value of the letter matches with a letter thats in the phrase, make it appear and return that letter.
-            // else, replace a live heart with a dead heart and return "null"
-            // disable chosen buttons
-
 };
 
-function checkWin(letter) {
-    // Check to see if the number of letters with class "show", matches with the number of letters with class "letters"
-    // if the number of wrong guesses is over 5, display the you lose screen card.
+function checkWin() {
+    if (guessesLeft === 0) {
+        document.querySelector('#main').style.display = 'none';
+        const cover = document.querySelector('#loser-cover');
+        cover.style.display = 'flex';
+        cover.style.backgroundColor = '#da0d0d';
+    }
+    else if (document.querySelectorAll(".show").length === document.querySelectorAll(".letter").length) {
+        document.querySelector('#main').style.display = 'none';
+        const cover = document.querySelector('#winner-cover');
+        cover.style.display = 'flex';
+        cover.style.backgroundColor = '#c3127c';
+    }
 };
 
-const phraseArray = getRandomPhraseAsArray(phrases);
-addPhraseToDisplay(phraseArray);
+for (i = 0; i < resetClicked.length; i++) {
+    resetClicked[i].addEventListener('click', (e) => {
+        document.querySelector('#winner-cover').style.display = 'none';
+        document.querySelector('#loser-cover').style.display = 'none';
+        const phraseArray = getRandomPhraseAsArray(phrases);
+        while (secretPhrase.firstChild) {
+            secretPhrase.removeChild(secretPhrase.firstChild);
+        }
+        const newButton = document.querySelectorAll('button');
+        for (i = 0; i < newButton.length; i++) {
+            newButton[i].disabled = false;
+            newButton[i].classList.remove('chosen');
+        }
+        document.querySelector('#main').style.display = 'flex';
+        guessesLeft = 5;
+        generatePhrase();
+    });
+}
 

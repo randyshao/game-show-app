@@ -44,8 +44,8 @@ button {
 .title-card {
     background-color: #3492eb;
 }
-
-.start-btn {
+.start-btn,
+.reset-btn {
     text-align: center;
     display: inline-block;
     padding: 5px;
@@ -77,6 +77,8 @@ button {
 
 /* overlay */
 #cover,
+#winner-cover,
+#loser-cover,
 #main {
     display: flex;
     flex-direction: column;
@@ -99,7 +101,7 @@ button {
     border-radius: 5px;
 }
 
-.letter-revealed {
+.show {
     font-size: 1em;
     height: 60px;
     width: 60px;
@@ -113,4 +115,14 @@ button {
 .space {
     height: 60px;
     width: 10px;
+}
+
+.chosen {
+    background-color: indigo;
+    color: white;
+}
+
+#winner-cover,
+#loser-cover {
+    display: none;
 }

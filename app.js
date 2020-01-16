@@ -3,8 +3,8 @@ const resetClicked = document.querySelectorAll('.reset-btn');
 const letterClicked = document.querySelector('#keyboard');
 const secretPhrase = document.querySelector('#phrase');
 const lives = document.querySelectorAll('#heart');
-const phrases = ['Hello my name is Randy', 'Ok boomer', 'Why are you running', 'What are those', 
-                'Peanut Butter Jelly Time', 'Haters Gonna Hate'];
+const phrases = ['Hello my name is Randy', 'Zebras have stripes', 'Why are you running', 'What are those', 
+                'Peanut Butter Jelly Time', 'It is nice to meet you'];
 let guessesLeft = 5;
 
 startClicked.addEventListener('click', (e) => {
